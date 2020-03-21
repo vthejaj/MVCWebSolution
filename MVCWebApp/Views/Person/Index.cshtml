@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Person Type</title>
+</head>
+<body>
+    <h2>Person Type</h2>
+    <form method="post">
+        Age : <input type="number" name="age" value='@Request["age"]' />
+        <p></p>
+        <input type="submit" value="Submit" />
+    </form>
+    <h3>@ViewBag.Result</h3>
+</body>
+</html>

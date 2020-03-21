@@ -1,0 +1,43 @@
+﻿@model MVCWebApp.Models.PersonDetails
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BMI</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+</head>
+<body>
+    <h2>BMI Calculator</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.LabelFor(model => model.Height)<span> (CM)</span>
+        <br />
+        @Html.EditorFor(model => model.Height)
+        <span>&nbsp;</span>
+        @Html.ValidationMessageFor(model => model.Height, "")
+        <p></p>
+        @Html.LabelFor(model => model.Weight)<span> (KG)</span>
+        <br />
+        @Html.EditorFor(model => model.Weight)
+        <span>&nbsp;</span>
+        @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+        <p></p>
+        <input type="submit" value="Calculate" class="btn btn-default" />
+    }
+
+    <h3>
+        @if (Model.BMI > 0)
+        {
+            @Model.BMI
+        }
+    </h3>
+</body>
+</html>
