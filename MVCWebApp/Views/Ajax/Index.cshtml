@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ajax Demo</title>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        function getDateTime() {
+            // url, params, callback
+            $.get("/Ajax/Now", null, showDateTime);
+        }
+        function showDateTime(result) {
+            $("#now").text(result)
+        }
+    </script>
+</head>
+<body>
+    <h2>Ajax Demo</h2>
+    <h3>Using jQuery</h3>
+    <button onclick="getDateTime()">Get Date and Time</button>
+    <h4 id="now"></h4>
+
+    <h3>Using Ajax ActionLink</h3>
+    @Ajax.ActionLink("Get Date and Time", "Now",
+        new AjaxOptions { UpdateTargetId = "now" })
+
+    <h3>ActionLink with PartialView</h3>
+    @Ajax.ActionLink("Get Languages", "Langs",
+        new AjaxOptions { UpdateTargetId = "langs" })
+    <ul id="langs">
+    </ul>
+
+
+    <h2>Discount Calculation</h2>
+    @using (Ajax.BeginForm("Discount",
+         new AjaxOptions { UpdateTargetId = "netprice" }))
+    {
+        <span>Price :</span>
+        <input type="number" name="price" />
+        <input type="number" name="qty" />
+        <p></p>
+        <input type="submit" value="Net Amount" />
+        <h3 id="netprice"></h3>
+    }
+
+</body>
+</html>

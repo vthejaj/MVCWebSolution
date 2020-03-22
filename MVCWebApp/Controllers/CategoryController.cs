@@ -70,5 +70,28 @@ namespace MVCWebApp.Controllers
 
             return View(model);
         }
+
+        public ActionResult Delete(string id)
+        {
+            SqlConnection con = new SqlConnection(Database.MSDBConnectionString);
+            con.Open();
+            SqlCommand cmd = new SqlCommand
+                 ("delete from categories where catcode = @code", con);
+            cmd.Parameters.AddWithValue("@code", id);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "Sorry! Could not delete category. Error : " + ex.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return View();
+        }
     }
 }
